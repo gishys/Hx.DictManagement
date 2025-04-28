@@ -1,0 +1,2 @@
+# Hx.DictManagement
+dictionary management
