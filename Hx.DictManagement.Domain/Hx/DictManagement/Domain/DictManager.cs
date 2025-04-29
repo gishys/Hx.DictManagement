@@ -17,7 +17,7 @@ namespace Hx.DictManagement.Domain
         public async Task<DictType> CreateDictTypeAsync(
             string name,
             string code,
-            string description,
+            string? description,
             bool status,
             int order,
             bool isStatic)

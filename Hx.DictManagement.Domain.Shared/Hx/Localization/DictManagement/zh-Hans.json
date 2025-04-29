@@ -1,0 +1,10 @@
+﻿{
+  "culture": "en",
+  "texts": {
+    "Permission:DictManagement": "字典管理",
+    "Permission:DictManagement.Dict": "字典数据管理",
+    "Permission:DictManagement.Dict.Create": "创建字典",
+    "Permission:DictManagement.Dict.Update": "编辑字典",
+    "Permission:DictManagement.Dict.Delete": "删除字典"
+  }
+}

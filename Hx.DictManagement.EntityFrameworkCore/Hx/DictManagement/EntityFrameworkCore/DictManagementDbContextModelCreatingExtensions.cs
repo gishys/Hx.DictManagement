@@ -81,6 +81,8 @@ namespace Hx.DictManagement.EntityFrameworkCore
                 b.HasIndex(di => di.ParentId).HasDatabaseName("IX_DICT_ITEMS_PARENT_ID");
                 b.HasIndex(di => di.Status).HasDatabaseName("IX_DICT_ITEMS_STATUS");
                 b.HasIndex(di => di.Order).HasDatabaseName("IX_DICT_ITEMS_ORDER");
+                b.HasIndex(di => new { di.DictTypeId, di.Code }).HasDatabaseName("IX_DICT_ITEMS_DICTTYPEID_CODE");
+                b.HasIndex(di => new { di.ParentId, di.Order }).HasDatabaseName("IX_DICT_ITEMS_PARENTID_ORDER");
 
                 // 属性配置
                 b.Property(di => di.DictTypeId)

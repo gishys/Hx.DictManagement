@@ -13,7 +13,7 @@ namespace Hx.DictManagement.Domain
             Guid id,
             string name,
             string code,
-            string description,
+            string? description,
             bool status,
             int order,
             bool isStatic) : base(id)
