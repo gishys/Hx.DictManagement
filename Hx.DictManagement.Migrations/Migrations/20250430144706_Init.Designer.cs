@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Migrations
 {
     [DbContext(typeof(DictManagementMigrationDbContext))]
-    [Migration("20250430012104_Init")]
+    [Migration("20250430144706_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -127,6 +127,9 @@ namespace Migrations
                         .HasColumnType("character varying(512)")
                         .HasColumnName("DESCRIPTION");
 
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("IsStatic")
                         .HasColumnType("boolean")
                         .HasColumnName("IS_STATIC");
@@ -159,6 +162,8 @@ namespace Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_DICT_TYPES_CODE");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("Name")
                         .HasDatabaseName("IX_DICT_TYPES_NAME");
 
@@ -169,6 +174,73 @@ namespace Migrations
                         .HasDatabaseName("IX_DICT_TYPES_STATUS");
 
                     b.ToTable("DICT_TYPES", (string)null);
+                });
+
+            modelBuilder.Entity("Hx.DictManagement.Domain.DictTypeGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("ID")
+                        .HasComment("主键");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(119)
+                        .HasColumnType("character varying(119)")
+                        .HasColumnName("CODE")
+                        .HasComment("路径枚举");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CREATIONTIME");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CREATORID");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("DESCRIPTION")
+                        .HasComment("描述");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("LASTMODIFICATIONTIME");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LASTMODIFIERID");
+
+                    b.Property<double>("Order")
+                        .HasColumnType("double precision")
+                        .HasColumnName("ORDER")
+                        .HasComment("序号");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("PARENT_ID")
+                        .HasComment("父Id");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("TENANTID")
+                        .HasComment("租户Id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("TITLE")
+                        .HasComment("标题");
+
+                    b.HasKey("Id")
+                        .HasName("PK_APPLICATIONFORM_GROUP");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("DICT_TYPE_GROUPS", (string)null);
                 });
 
             modelBuilder.Entity("Hx.DictManagement.Domain.DictItem", b =>
@@ -185,6 +257,24 @@ namespace Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Hx.DictManagement.Domain.DictType", b =>
+                {
+                    b.HasOne("Hx.DictManagement.Domain.DictTypeGroup", null)
+                        .WithMany("Items")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("AF_GROUPS_APPLICATIONFORM_ID");
+                });
+
+            modelBuilder.Entity("Hx.DictManagement.Domain.DictTypeGroup", b =>
+                {
+                    b.HasOne("Hx.DictManagement.Domain.DictTypeGroup", null)
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("AF_GROUPS_PARENT_ID");
+                });
+
             modelBuilder.Entity("Hx.DictManagement.Domain.DictItem", b =>
                 {
                     b.Navigation("Children");
@@ -193,6 +283,13 @@ namespace Migrations
             modelBuilder.Entity("Hx.DictManagement.Domain.DictType", b =>
                 {
                     b.Navigation("DictItems");
+                });
+
+            modelBuilder.Entity("Hx.DictManagement.Domain.DictTypeGroup", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

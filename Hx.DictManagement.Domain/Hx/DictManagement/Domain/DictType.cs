@@ -26,6 +26,7 @@ namespace Hx.DictManagement.Domain
             IsStatic = isStatic;
             DictItems = [];
         }
+        public virtual Guid? GroupId { get; protected set; }
         /// <summary>
         /// 类型名称
         /// </summary>

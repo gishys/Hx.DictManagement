@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Hx\Localization\DictManagement\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Hx\Localization\DictManagement\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="8.1.1" />
     <PackageReference Include="Volo.Abp.Validation" Version="8.1.1" />
   </ItemGroup>

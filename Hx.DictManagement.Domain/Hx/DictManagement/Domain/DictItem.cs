@@ -33,43 +33,43 @@ namespace Hx.DictManagement.Domain
         /// <summary>
         /// 关联
         /// </summary>
-        public Guid DictTypeId { get; protected set; }
+        public virtual Guid DictTypeId { get; protected set; }
         /// <summary>
         /// 显示名称
         /// </summary>
-        public string Name { get; protected set; }
+        public virtual string Name { get; protected set; }
         /// <summary>
         /// 值编码（唯一）
         /// </summary>
-        public string Code { get; protected set; }
+        public virtual string Code { get; protected set; }
         /// <summary>
         /// 实际存储值
         /// </summary>
-        public string Value { get; protected set; }
+        public virtual string Value { get; protected set; }
         /// <summary>
         /// 父Id
         /// </summary>
-        public Guid? ParentId { get; protected set; }
+        public virtual Guid? ParentId { get; protected set; }
         /// <summary>
         /// 状态（1-启用 0-禁用）
         /// </summary>
-        public bool Status { get; protected set; }
+        public virtual bool Status { get; protected set; }
         /// <summary>
         /// 排序字段
         /// </summary>
-        public double Order { get; protected set; }
+        public virtual double Order { get; protected set; }
         /// <summary>
         /// 样式类名
         /// </summary>
-        public string? CssClass { get; protected set; }
+        public virtual string? CssClass { get; protected set; }
         /// <summary>
         /// 是否默认值
         /// </summary>
-        public bool? IsDefault { get; protected set; }
+        public virtual bool? IsDefault { get; protected set; }
         /// <summary>
         /// 子项
         /// </summary>
-        public ICollection<DictItem> Children { get; protected set; }
+        public virtual ICollection<DictItem> Children { get; protected set; }
 
         public void SetName(string name)
         {

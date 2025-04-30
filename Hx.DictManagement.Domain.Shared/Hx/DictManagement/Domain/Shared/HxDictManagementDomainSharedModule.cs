@@ -20,14 +20,15 @@ namespace Hx.DictManagement.Domain.Shared
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
-                    .Add<DictManagementResource>("zh-Hans")
+                    .Add<DictManagementResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/Localization/ArchivaFlow");
+                    .AddVirtualJson("/Hx/Localization/DictManagement");
+                options.DefaultResourceType = typeof(DictManagementResource);
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
-                options.MapCodeNamespace("ArchivaFlow", typeof(DictManagementResource));
+                options.MapCodeNamespace("DictManagement", typeof(DictManagementResource));
             });
         }
     }

@@ -12,10 +12,38 @@ namespace Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DICT_TYPE_GROUPS",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uuid", nullable: false, comment: "主键"),
+                    TITLE = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false, comment: "标题"),
+                    CODE = table.Column<string>(type: "character varying(119)", maxLength: 119, nullable: false, comment: "路径枚举"),
+                    ORDER = table.Column<double>(type: "double precision", nullable: false, comment: "序号"),
+                    PARENT_ID = table.Column<Guid>(type: "uuid", nullable: true, comment: "父Id"),
+                    DESCRIPTION = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true, comment: "描述"),
+                    TENANTID = table.Column<Guid>(type: "uuid", nullable: true, comment: "租户Id"),
+                    CREATIONTIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CREATORID = table.Column<Guid>(type: "uuid", nullable: true),
+                    LASTMODIFICATIONTIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LASTMODIFIERID = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_APPLICATIONFORM_GROUP", x => x.ID);
+                    table.ForeignKey(
+                        name: "AF_GROUPS_PARENT_ID",
+                        column: x => x.PARENT_ID,
+                        principalTable: "DICT_TYPE_GROUPS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DICT_TYPES",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: true),
                     NAME = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     CODE = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     DESCRIPTION = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
@@ -30,6 +58,12 @@ namespace Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DICT_TYPES", x => x.ID);
+                    table.ForeignKey(
+                        name: "AF_GROUPS_APPLICATIONFORM_ID",
+                        column: x => x.GroupId,
+                        principalTable: "DICT_TYPE_GROUPS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,10 +130,20 @@ namespace Migrations
                 column: "STATUS");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DICT_TYPE_GROUPS_PARENT_ID",
+                table: "DICT_TYPE_GROUPS",
+                column: "PARENT_ID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DICT_TYPES_CODE",
                 table: "DICT_TYPES",
                 column: "CODE",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DICT_TYPES_GroupId",
+                table: "DICT_TYPES",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DICT_TYPES_NAME",
@@ -125,6 +169,9 @@ namespace Migrations
 
             migrationBuilder.DropTable(
                 name: "DICT_TYPES");
+
+            migrationBuilder.DropTable(
+                name: "DICT_TYPE_GROUPS");
         }
     }
 }

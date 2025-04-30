@@ -9,6 +9,37 @@ namespace Hx.DictManagement.EntityFrameworkCore
     {
         public static void ConfigureDictManagement(this ModelBuilder builder)
         {
+            builder.Entity<DictTypeGroup>(t =>
+            {
+                t.ConfigureFullAuditedAggregateRoot();
+                t.ToTable("DICT_TYPE_GROUPS");
+                t.HasKey(p => p.Id).HasName("PK_APPLICATIONFORM_GROUP");
+                t.Property(p => p.Id).HasColumnName("ID").HasComment("主键");
+                t.Property(t => t.Title).IsRequired().HasMaxLength(255).HasColumnName("TITLE").HasComment("标题");
+                t.Property(t => t.Code).IsRequired().HasMaxLength(119).HasColumnName("CODE").HasComment("路径枚举");
+                t.Property(t => t.ParentId).IsRequired(false).HasColumnName("PARENT_ID").HasComment("父Id");
+                t.Property(t => t.Order).IsRequired().HasColumnName("ORDER").HasComment("序号");
+                t.Property(p => p.TenantId).HasColumnName("TENANTID").HasComment("租户Id");
+                t.Property(t => t.Description).IsRequired(false).HasMaxLength(500).HasColumnName("DESCRIPTION").HasComment("描述");
+
+                t.HasMany(t => t.Items)
+                       .WithOne()
+                       .HasForeignKey(d => d.GroupId)
+                       .HasConstraintName("AF_GROUPS_APPLICATIONFORM_ID")
+                       .OnDelete(DeleteBehavior.Cascade);
+
+                t.HasMany(t => t.Children)
+                       .WithOne()
+                       .HasForeignKey(d => d.ParentId)
+                       .HasConstraintName("AF_GROUPS_PARENT_ID")
+                       .OnDelete(DeleteBehavior.Cascade);
+
+                t.Property(p => p.CreationTime).HasColumnName("CREATIONTIME").HasColumnType("timestamp with time zone");
+                t.Property(p => p.CreatorId).HasColumnName("CREATORID");
+                t.Property(p => p.LastModificationTime).HasColumnName("LASTMODIFICATIONTIME").HasColumnType("timestamp with time zone");
+                t.Property(p => p.LastModifierId).HasColumnName("LASTMODIFIERID");
+            });
+
             builder.Entity<DictType>(b =>
             {
                 // 表名及基本配置

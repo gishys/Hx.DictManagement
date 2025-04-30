@@ -12,6 +12,7 @@ namespace Hx.DictManagement.EntityFrameworkCore
     {
         public virtual DbSet<DictType> DictTypes { get; set; }
         public virtual DbSet<DictItem> DictItems { get; set; }
+        public virtual DbSet<DictTypeGroup> DictTypeGroups { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
