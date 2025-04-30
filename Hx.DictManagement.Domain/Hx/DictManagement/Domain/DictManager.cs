@@ -19,7 +19,7 @@ namespace Hx.DictManagement.Domain
             string code,
             string? description,
             bool status,
-            int order,
+            double order,
             bool isStatic)
         {
             // 校验编码唯一性
@@ -43,7 +43,7 @@ namespace Hx.DictManagement.Domain
             string name,
             string description,
             bool status,
-            int order)
+            double order)
         {
             DictType dictType = await _dictTypeRepository.GetAsync(id);
 
@@ -75,7 +75,7 @@ namespace Hx.DictManagement.Domain
             string code,
             string value,
             bool status,
-            int order,
+            double order,
             string? cssClass = null,
             bool? isDefault = null,
             Guid? parentId = null)
@@ -86,13 +86,13 @@ namespace Hx.DictManagement.Domain
             // 校验同一类型下编码唯一性
             if (await _dictItemRepository.AnyAsync(di => di.DictTypeId == dictTypeId && di.Code == code))
             {
-                throw new UserFriendlyException("字典项编码已存在");
+                throw new UserFriendlyException(message: "字典项编码已存在");
             }
 
             // 校验父项是否存在
             if (parentId.HasValue && !await _dictItemRepository.AnyAsync(di => di.ParentId == parentId.Value))
             {
-                throw new UserFriendlyException("指定的父项不存在");
+                throw new UserFriendlyException(message: "指定的父项不存在");
             }
 
             var dictItem = new DictItem(
@@ -114,7 +114,7 @@ namespace Hx.DictManagement.Domain
             string name,
             string value,
             bool status,
-            int order,
+            double order,
             string? cssClass = null,
             bool? isDefault = null,
             Guid? parentId = null)
@@ -133,7 +133,7 @@ namespace Hx.DictManagement.Domain
             {
                 if (!await _dictItemRepository.AnyAsync(di => di.ParentId == parentId.Value))
                 {
-                    throw new UserFriendlyException("指定的父项不存在");
+                    throw new UserFriendlyException(message: "指定的父项不存在");
                 }
                 await dictItem.SetParentId(parentId.Value, _dictItemRepository);
             }
@@ -143,7 +143,7 @@ namespace Hx.DictManagement.Domain
 
         public async Task DeleteDictItemAsync(Guid itemId)
         {
-            var item = await _dictItemRepository.GetAsync(itemId);
+            var item = await _dictItemRepository.FindAsync(itemId) ?? throw new UserFriendlyException(message: "指定的项不存在");
 
             if (item.Children.Count > 0)
             {

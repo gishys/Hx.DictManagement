@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Hx.DictManagement.Application;
+using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
@@ -8,6 +9,7 @@ namespace Hx.DictManagement
 {
     [DependsOn(typeof(AbpAutofacModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
+    [DependsOn(typeof(HxDictManagementApplicationModule))]
     public class AppModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -21,7 +23,7 @@ namespace Hx.DictManagement
             });
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
-                //options.ConventionalControllers.Create(typeof(HxArchivaFlowApplicationModule).Assembly);
+                options.ConventionalControllers.Create(typeof(HxDictManagementApplicationModule).Assembly);
             });
         }
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

@@ -17,7 +17,7 @@ namespace Hx.DictManagement.Application.Contracts
         public string? Description { get; set; }
 
         public bool Status { get; set; } = true;
-        public int Order { get; set; }
+        public double Order { get; set; }
         public bool IsStatic { get; set; }
     }
 }

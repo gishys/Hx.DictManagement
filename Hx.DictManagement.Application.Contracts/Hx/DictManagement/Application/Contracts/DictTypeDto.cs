@@ -9,7 +9,7 @@ namespace Hx.DictManagement.Application.Contracts
         public required string Code { get; set; }
         public string? Description { get; set; }
         public bool Status { get; set; }
-        public int Order { get; set; }
+        public double Order { get; set; }
         public bool IsStatic { get; set; }
     }
 }

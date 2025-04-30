@@ -111,6 +111,16 @@ namespace Hx.DictManagement.EntityFrameworkCore
                 .ToListAsync();
         }
 
+        public async override Task<DictItem?> FindAsync(Expression<Func<DictItem, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
+        {
+            var query = await GetQueryableAsync();
+            if(includeDetails)
+            {
+                query = query.Include(d => d.Children);
+            }
+            return await query.FirstOrDefaultAsync(predicate, cancellationToken);
+        }
+
         public async Task<int> GetMaxOrderAsync(Guid dictTypeId)
         {
             return await (await GetQueryableAsync())

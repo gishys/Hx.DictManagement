@@ -15,7 +15,7 @@ namespace Hx.DictManagement.Domain
             string code,
             string value,
             bool status,
-            int order,
+            double order,
             string? cssClass,
             bool? isDefault,
             Guid? parentId) : base(id)
@@ -57,7 +57,7 @@ namespace Hx.DictManagement.Domain
         /// <summary>
         /// 排序字段
         /// </summary>
-        public int Order { get; protected set; }
+        public double Order { get; protected set; }
         /// <summary>
         /// 样式类名
         /// </summary>
@@ -74,10 +74,10 @@ namespace Hx.DictManagement.Domain
         public void SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("字典项名称不能为空", nameof(name));
+                throw new UserFriendlyException(message: "字典项名称不能为空", code: nameof(name));
 
             if (name.Length > DictManagementConsts.NameMaxLength)
-                throw new ArgumentException($"名称长度不能超过{DictManagementConsts.NameMaxLength}个字符");
+                throw new UserFriendlyException(message: $"名称长度不能超过{DictManagementConsts.NameMaxLength}个字符");
 
             Name = name.Trim();
         }
@@ -85,10 +85,10 @@ namespace Hx.DictManagement.Domain
         public void SetValue(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("字典项值不能为空", nameof(value));
+                throw new UserFriendlyException(message: "字典项值不能为空", code: nameof(value));
 
             if (value.Length > DictManagementConsts.ValueMaxLength)
-                throw new ArgumentException($"值长度不能超过{DictManagementConsts.ValueMaxLength}个字符");
+                throw new UserFriendlyException(message: $"值长度不能超过{DictManagementConsts.ValueMaxLength}个字符");
 
             Value = value.Trim();
         }
@@ -96,15 +96,15 @@ namespace Hx.DictManagement.Domain
         public void SetStatus(bool status)
         {
             if (!status && IsDefault.HasValue && IsDefault.Value)
-                throw new BusinessException(code: "Dict:DefaultItemCannotDisable", message: "默认字典项不可禁用");
+                throw new UserFriendlyException(code: "Dict:DefaultItemCannotDisable", message: "默认字典项不可禁用");
 
             Status = status;
         }
 
-        public void SetOrder(int order)
+        public void SetOrder(double order)
         {
             if (order < 0)
-                throw new ArgumentException("排序值不能小于0", nameof(order));
+                throw new UserFriendlyException(message: "排序值不能小于0", code: nameof(order));
 
             Order = order;
         }
@@ -112,7 +112,7 @@ namespace Hx.DictManagement.Domain
         public void SetCssClass(string? cssClass)
         {
             if (cssClass?.Length > DictManagementConsts.CssClassMaxLength)
-                throw new ArgumentException($"样式类长度不能超过{DictManagementConsts.CssClassMaxLength}个字符");
+                throw new UserFriendlyException(message: $"样式类长度不能超过{DictManagementConsts.CssClassMaxLength}个字符");
 
             CssClass = cssClass?.Trim();
         }

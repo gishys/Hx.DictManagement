@@ -10,7 +10,7 @@ namespace Hx.DictManagement.Application.Contracts
         public required string Code { get; set; }
         public required string Value { get; set; }
         public bool Status { get; set; }
-        public int Order { get; set; }
+        public double Order { get; set; }
         public string? CssClass { get; set; }
         public bool? IsDefault { get; set; }
         public Guid? ParentId { get; set; }

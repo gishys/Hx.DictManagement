@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement", "Hx.DictManagement\Hx.DictManagement.csproj", "{B21E5C0C-BCD7-4A0C-A767-C1B09B3BE713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement", "Hx.DictManagement\Hx.DictManagement.csproj", "{B21E5C0C-BCD7-4A0C-A767-C1B09B3BE713}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.Domain", "Hx.DictManagement.Domain\Hx.DictManagement.Domain.csproj", "{9CC13A52-BE88-4F47-87A8-69F2C8913665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement.Domain", "Hx.DictManagement.Domain\Hx.DictManagement.Domain.csproj", "{9CC13A52-BE88-4F47-87A8-69F2C8913665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.EntityFrameworkCore", "Hx.DictManagement.EntityFrameworkCore\Hx.DictManagement.EntityFrameworkCore.csproj", "{276B4FF0-4BC2-47FD-8D0C-C72CBFD5F6F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement.EntityFrameworkCore", "Hx.DictManagement.EntityFrameworkCore\Hx.DictManagement.EntityFrameworkCore.csproj", "{276B4FF0-4BC2-47FD-8D0C-C72CBFD5F6F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.Domain.Shared", "Hx.DictManagement.Domain.Shared\Hx.DictManagement.Domain.Shared.csproj", "{BD778EED-9F9C-45A1-AF3F-A5BB9A9FD0FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement.Domain.Shared", "Hx.DictManagement.Domain.Shared\Hx.DictManagement.Domain.Shared.csproj", "{BD778EED-9F9C-45A1-AF3F-A5BB9A9FD0FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.Application.Contracts", "Hx.DictManagement.Application.Contracts\Hx.DictManagement.Application.Contracts.csproj", "{F6B4212C-058A-4741-96D7-8896FC639A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement.Application.Contracts", "Hx.DictManagement.Application.Contracts\Hx.DictManagement.Application.Contracts.csproj", "{F6B4212C-058A-4741-96D7-8896FC639A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.Application", "Hx.DictManagement.Application\Hx.DictManagement.Application.csproj", "{F8147308-78FA-4553-90CA-6492774C0A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hx.DictManagement.Application", "Hx.DictManagement.Application\Hx.DictManagement.Application.csproj", "{F8147308-78FA-4553-90CA-6492774C0A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hx.DictManagement.Migrations", "Hx.DictManagement.Migrations\Hx.DictManagement.Migrations.csproj", "{C5D5858F-1FF8-4BAC-B6D9-144270A72648}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +47,15 @@ Global
 		{F8147308-78FA-4553-90CA-6492774C0A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8147308-78FA-4553-90CA-6492774C0A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8147308-78FA-4553-90CA-6492774C0A15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D5858F-1FF8-4BAC-B6D9-144270A72648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D5858F-1FF8-4BAC-B6D9-144270A72648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D5858F-1FF8-4BAC-B6D9-144270A72648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D5858F-1FF8-4BAC-B6D9-144270A72648}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DF0AA70-0870-4D74-B11A-C5F1549A8B9D}
 	EndGlobalSection
 EndGlobal

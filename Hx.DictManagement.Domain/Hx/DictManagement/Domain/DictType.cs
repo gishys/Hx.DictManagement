@@ -15,7 +15,7 @@ namespace Hx.DictManagement.Domain
             string code,
             string? description,
             bool status,
-            int order,
+            double order,
             bool isStatic) : base(id)
         {
             Name = name;
@@ -45,7 +45,7 @@ namespace Hx.DictManagement.Domain
         /// <summary>
         /// 排序字段
         /// </summary>
-        public virtual int Order { get; protected set; }
+        public virtual double Order { get; protected set; }
         /// <summary>
         /// 是否静态
         /// </summary>
@@ -58,10 +58,10 @@ namespace Hx.DictManagement.Domain
         public void SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("字典类型名称不能为空", nameof(name));
+                throw new UserFriendlyException(message: "字典类型名称不能为空", code: nameof(name));
 
             if (name.Length > DictManagementConsts.NameMaxLength)
-                throw new ArgumentException($"名称长度不能超过{DictManagementConsts.NameMaxLength}个字符");
+                throw new UserFriendlyException(message: $"名称长度不能超过{DictManagementConsts.NameMaxLength}个字符");
 
             Name = name.Trim();
         }
@@ -69,7 +69,7 @@ namespace Hx.DictManagement.Domain
         public void SetDescription(string? description)
         {
             if (description?.Length > DictManagementConsts.DescriptionMaxLength)
-                throw new ArgumentException($"描述长度不能超过{DictManagementConsts.DescriptionMaxLength}个字符");
+                throw new UserFriendlyException(message: $"描述长度不能超过{DictManagementConsts.DescriptionMaxLength}个字符");
 
             Description = description?.Trim();
         }
@@ -82,10 +82,10 @@ namespace Hx.DictManagement.Domain
             Status = status;
         }
 
-        public void SetOrder(int order)
+        public void SetOrder(double order)
         {
             if (order < 0)
-                throw new ArgumentException("排序值不能小于0", nameof(order));
+                throw new UserFriendlyException(message: "排序值不能小于0", code: nameof(order));
 
             Order = order;
         }
