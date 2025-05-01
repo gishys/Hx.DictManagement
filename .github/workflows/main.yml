@@ -22,7 +22,7 @@ jobs:
         version=$(echo "${{ github.event.release.tag_name }}" | cut -c 2-)
         echo "Setting version to $version"
         dotnet build Hx.DictManagement.Application/Hx.DictManagement.Application.csproj -c Release
-        dotnet pack Hx.DictManagement.Application/Hx.DictManagement.DictManagement.csproj -c Release -o ./Hx.DictManagement.Application /p:PackageVersion=$version
+        dotnet pack Hx.DictManagement.Application/Hx.DictManagement.Application.csproj -c Release -o ./Hx.DictManagement.Application /p:PackageVersion=$version
         dotnet build Hx.DictManagement.Application.Contracts/Hx.DictManagement.Application.Contracts.csproj -c Release
         dotnet pack Hx.DictManagement.Application.Contracts/Hx.DictManagement.Application.Contracts.csproj -c Release -o ./Hx.DictManagement.Application.Contracts /p:PackageVersion=$version
         dotnet build Hx.DictManagement.Domain/Hx.DictManagement.Domain.csproj -c Release
