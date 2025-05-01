@@ -1,0 +1,46 @@
+name: Multi-package NuGet DictManagement
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.104'
+        
+    - name: Build and pack NuGet packages
+      run: |
+        version=$(echo "${{ github.event.release.tag_name }}" | cut -c 2-)
+        echo "Setting version to $version"
+        dotnet build Hx.DictManagement.Application/Hx.DictManagement.Application.csproj -c Release
+        dotnet pack Hx.DictManagement.Application/Hx.DictManagement.DictManagement.csproj -c Release -o ./Hx.DictManagement.Application /p:PackageVersion=$version
+        dotnet build Hx.DictManagement.Application.Contracts/Hx.DictManagement.Application.Contracts.csproj -c Release
+        dotnet pack Hx.DictManagement.Application.Contracts/Hx.DictManagement.Application.Contracts.csproj -c Release -o ./Hx.DictManagement.Application.Contracts /p:PackageVersion=$version
+        dotnet build Hx.DictManagement.Domain/Hx.DictManagement.Domain.csproj -c Release
+        dotnet pack Hx.DictManagement.Domain/Hx.DictManagement.Domain.csproj -c Release -o ./Hx.DictManagement.Domain /p:PackageVersion=$version
+        dotnet build Hx.DictManagement.Domain.Shared/Hx.DictManagement.Domain.Shared.csproj -c Release
+        dotnet pack Hx.DictManagement.Domain.Shared/Hx.DictManagement.Domain.Shared.csproj -c Release -o ./Hx.DictManagement.Domain.Shared /p:PackageVersion=$version
+        dotnet build Hx.DictManagement.EntityFrameworkCore/Hx.DictManagement.EntityFrameworkCore.csproj -c Release
+        dotnet pack Hx.DictManagement.EntityFrameworkCore/Hx.DictManagement.EntityFrameworkCore.csproj -c Release -o ./Hx.DictManagement.EntityFrameworkCore /p:PackageVersion=$version
+        cp ./Hx.DictManagement.Application/*.nupkg $GITHUB_WORKSPACE
+        cp ./Hx.DictManagement.Application.Contracts/*.nupkg $GITHUB_WORKSPACE
+        cp ./Hx.DictManagement.Domain/*.nupkg $GITHUB_WORKSPACE
+        cp ./Hx.DictManagement.Domain.Shared/*.nupkg $GITHUB_WORKSPACE
+        cp ./Hx.DictManagement.EntityFrameworkCore/*.nupkg $GITHUB_WORKSPACE
+
+    - name: Push NuGet packages
+      run: |
+        dotnet nuget push ./Hx.DictManagement.Application/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        dotnet nuget push ./Hx.DictManagement.Application.Contracts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        dotnet nuget push ./Hx.DictManagement.Domain/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        dotnet nuget push ./Hx.DictManagement.Domain.Shared/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        dotnet nuget push ./Hx.DictManagement.EntityFrameworkCore/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
