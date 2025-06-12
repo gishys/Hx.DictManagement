@@ -108,20 +108,23 @@ namespace Hx.DictManagement.Application
             await _dictManager.DeleteDictItemAsync(id);
         }
 
-        public async Task<DictItemDto?> GetDictItemTreeAsync(string typeCode)
+        public async Task<List<DictItemDto>> GetDictItemTreeAsync(string typeCode)
         {
             var items = await _dictManager.GetTreeByTypeCodeAsync(typeCode);
             return BuildTreeDto(items);
         }
 
-        private DictItemDto? BuildTreeDto(List<DictItem> items)
+        private List<DictItemDto> BuildTreeDto(List<DictItem> items)
         {
-            var root = items.FirstOrDefault(i => i.ParentId == null);
-            if (root == null) return null;
+            var root = items.Where(i => i.ParentId == null).ToList();
+            if (root == null) return [];
 
-            var dto = ObjectMapper.Map<DictItem, DictItemDto>(root);
-            BuildTreeChildren(dto, items);
-            return dto;
+            var dtos = ObjectMapper.Map<List<DictItem>, List<DictItemDto>>(root);
+            foreach (var dto in dtos)
+            {
+                BuildTreeChildren(dto, items);
+            }
+            return dtos;
         }
 
         private void BuildTreeChildren(DictItemDto parentDto, List<DictItem> allItems)

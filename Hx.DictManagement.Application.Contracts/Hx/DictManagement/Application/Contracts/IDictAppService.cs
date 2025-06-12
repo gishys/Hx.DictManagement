@@ -9,10 +9,9 @@ namespace Hx.DictManagement.Application.Contracts
         Task<DictTypeDto> UpdateDictTypeAsync(Guid id, UpdateDictTypeDto input);
         Task DeleteDictTypeAsync(Guid id);
         Task<ListResultDto<DictTypeDto>> GetAllDictTypesAsync();
-
+        Task<List<DictItemDto>> GetDictItemTreeAsync(string typeCode);
         Task<DictItemDto> CreateDictItemAsync(CreateDictItemDto input);
         Task<DictItemDto> UpdateDictItemAsync(Guid id, UpdateDictItemDto input);
         Task DeleteDictItemAsync(Guid id);
-        Task<DictItemDto?> GetDictItemTreeAsync(string typeCode);
     }
 }

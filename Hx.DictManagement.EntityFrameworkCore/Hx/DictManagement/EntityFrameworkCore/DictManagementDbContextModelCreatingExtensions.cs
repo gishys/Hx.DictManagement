@@ -13,7 +13,7 @@ namespace Hx.DictManagement.EntityFrameworkCore
             {
                 t.ConfigureFullAuditedAggregateRoot();
                 t.ToTable("DICT_TYPE_GROUPS");
-                t.HasKey(p => p.Id).HasName("PK_APPLICATIONFORM_GROUP");
+                t.HasKey(p => p.Id).HasName("PK_DICT_TYPE_GROUPS");
                 t.Property(p => p.Id).HasColumnName("ID").HasComment("主键");
                 t.Property(t => t.Title).IsRequired().HasMaxLength(255).HasColumnName("TITLE").HasComment("标题");
                 t.Property(t => t.Code).IsRequired().HasMaxLength(119).HasColumnName("CODE").HasComment("路径枚举");
@@ -25,13 +25,13 @@ namespace Hx.DictManagement.EntityFrameworkCore
                 t.HasMany(t => t.Items)
                        .WithOne()
                        .HasForeignKey(d => d.GroupId)
-                       .HasConstraintName("AF_GROUPS_APPLICATIONFORM_ID")
+                       .HasConstraintName("AF_DICT_TYPE_GROUPS_ID")
                        .OnDelete(DeleteBehavior.Cascade);
 
                 t.HasMany(t => t.Children)
                        .WithOne()
                        .HasForeignKey(d => d.ParentId)
-                       .HasConstraintName("AF_GROUPS_PARENT_ID")
+                       .HasConstraintName("AF_DICT_TYPE_GROUPS_PARENT_ID")
                        .OnDelete(DeleteBehavior.Cascade);
 
                 t.Property(p => p.CreationTime).HasColumnName("CREATIONTIME").HasColumnType("timestamp with time zone");
