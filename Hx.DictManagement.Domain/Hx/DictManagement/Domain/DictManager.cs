@@ -145,7 +145,7 @@ namespace Hx.DictManagement.Domain
         {
             var item = await _dictItemRepository.FindAsync(itemId) ?? throw new UserFriendlyException(message: "指定的项不存在");
 
-            if (item.Children.Count > 0)
+            if (item.Children?.Count > 0)
             {
                 throw new UserFriendlyException(code: "Dict:CannotDeleteItemWithChildren", message: "存在子项时不可删除");
             }

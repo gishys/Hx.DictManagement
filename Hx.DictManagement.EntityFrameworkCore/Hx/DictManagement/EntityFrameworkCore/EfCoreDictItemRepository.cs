@@ -12,7 +12,7 @@ namespace Hx.DictManagement.EntityFrameworkCore
         public async Task<DictItem?> FindByCodeAsync(Guid dictTypeId, string code)
         {
             return await (await GetQueryableAsync())
-                .AsNoTracking()
+                .Include(x => x.Children)
                 .FirstOrDefaultAsync(di =>
                     di.DictTypeId == dictTypeId &&
                     di.Code == code);
@@ -114,7 +114,7 @@ namespace Hx.DictManagement.EntityFrameworkCore
         public async override Task<DictItem?> FindAsync(Expression<Func<DictItem, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
         {
             var query = await GetQueryableAsync();
-            if(includeDetails)
+            if (includeDetails)
             {
                 query = query.Include(d => d.Children);
             }
