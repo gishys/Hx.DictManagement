@@ -16,7 +16,8 @@ namespace Hx.DictManagement.Domain
             string? description,
             bool status,
             double order,
-            bool isStatic) : base(id)
+            bool isStatic,
+            Guid? groupId) : base(id)
         {
             Name = name;
             Code = code;
@@ -24,6 +25,7 @@ namespace Hx.DictManagement.Domain
             Status = status;
             Order = order;
             IsStatic = isStatic;
+            GroupId = groupId;
             DictItems = [];
         }
         public virtual Guid? GroupId { get; protected set; }

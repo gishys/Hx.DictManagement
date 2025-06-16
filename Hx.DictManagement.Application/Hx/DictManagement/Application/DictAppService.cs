@@ -25,7 +25,8 @@ namespace Hx.DictManagement.Application
                 input.Description,
                 input.Status,
                 input.Order,
-                input.IsStatic
+                input.IsStatic,
+                input.GroupId
             );
 
             await _typeRepository.InsertAsync(dictType);

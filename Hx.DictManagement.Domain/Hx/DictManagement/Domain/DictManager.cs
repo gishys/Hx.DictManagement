@@ -20,7 +20,8 @@ namespace Hx.DictManagement.Domain
             string? description,
             bool status,
             double order,
-            bool isStatic)
+            bool isStatic,
+            Guid? groupId)
         {
             // 校验编码唯一性
             if (await _dictTypeRepository.AnyAsync(dt => dt.Code == code))
@@ -35,7 +36,8 @@ namespace Hx.DictManagement.Domain
                 description,
                 status,
                 order,
-                isStatic);
+                isStatic,
+                groupId);
         }
 
         public async Task<DictType> UpdateDictTypeAsync(

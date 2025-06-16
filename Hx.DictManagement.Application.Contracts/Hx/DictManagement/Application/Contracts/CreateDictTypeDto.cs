@@ -19,5 +19,6 @@ namespace Hx.DictManagement.Application.Contracts
         public bool Status { get; set; } = true;
         public double Order { get; set; }
         public bool IsStatic { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }
