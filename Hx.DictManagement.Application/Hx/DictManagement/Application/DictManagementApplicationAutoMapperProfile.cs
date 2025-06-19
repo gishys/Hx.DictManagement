@@ -11,9 +11,8 @@ namespace Hx.DictManagement.Application
             CreateMap<DictType, DictTypeDto>();
             CreateMap<DictItem, DictItemDto>()
                 .ForMember(dest => dest.Children, opt => opt.Ignore());
-            CreateMap<DictItem, DictItemDto>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(f => f.Name))
-                .ForMember(dest => dest.Children, opt => opt.Ignore());
+            CreateMap<DictType, DictTypeTreeDto>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(f => f.Name));
             CreateMap<DictTypeGroup, DictTypeGroupDto>();
         }
     }
