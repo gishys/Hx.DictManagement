@@ -34,6 +34,6 @@
         /// <summary>
         /// 字典组
         /// </summary>
-        public required List<DictTypeDto> Items { get; set; }
+        public required List<DictTypeTreeDto> Items { get; set; }
     }
 }

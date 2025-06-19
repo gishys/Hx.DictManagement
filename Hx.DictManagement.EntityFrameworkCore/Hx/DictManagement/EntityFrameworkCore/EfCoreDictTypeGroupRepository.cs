@@ -91,7 +91,9 @@ namespace Hx.DictManagement.EntityFrameworkCore
             var dbSet = await GetDbSetAsync();
             var queryable = dbSet.AsQueryable();
             if (includeDetails)
+            {
                 queryable = dbSet.Include(d => d.Items);
+            }
             return await queryable.ToListAsync();
         }
     }
