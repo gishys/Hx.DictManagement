@@ -29,9 +29,9 @@ namespace Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_APPLICATIONFORM_GROUP", x => x.ID);
+                    table.PrimaryKey("PK_DICT_TYPE_GROUPS", x => x.ID);
                     table.ForeignKey(
-                        name: "AF_GROUPS_PARENT_ID",
+                        name: "AF_DICT_TYPE_GROUPS_PARENT_ID",
                         column: x => x.PARENT_ID,
                         principalTable: "DICT_TYPE_GROUPS",
                         principalColumn: "ID",
@@ -59,7 +59,7 @@ namespace Migrations
                 {
                     table.PrimaryKey("PK_DICT_TYPES", x => x.ID);
                     table.ForeignKey(
-                        name: "AF_GROUPS_APPLICATIONFORM_ID",
+                        name: "AF_DICT_TYPE_GROUPS_ID",
                         column: x => x.GroupId,
                         principalTable: "DICT_TYPE_GROUPS",
                         principalColumn: "ID",

@@ -82,6 +82,17 @@ namespace Hx.DictManagement.Domain
             Name = name.Trim();
         }
 
+        public void SetCode(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                throw new UserFriendlyException(message: "字典项代码不能为空", code: nameof(code));
+
+            if (code.Length > DictManagementConsts.ValueMaxLength)
+                throw new UserFriendlyException(message: $"值长度不能超过{DictManagementConsts.CodeMaxLength}个字符");
+
+            Code = code.Trim();
+        }
+
         public void SetValue(string value)
         {
             if (string.IsNullOrWhiteSpace(value))

@@ -88,6 +88,8 @@ namespace Hx.DictManagement.Application
             var dictItem = await _itemRepository.GetAsync(id);
 
             dictItem.SetName(input.Name);
+            if (dictItem.IsDefault == null || (dictItem.IsDefault.HasValue && !dictItem.IsDefault.Value))
+                dictItem.SetCode(input.Code);
             dictItem.SetValue(input.Value);
             dictItem.SetStatus(input.Status);
             dictItem.SetOrder(input.Order);

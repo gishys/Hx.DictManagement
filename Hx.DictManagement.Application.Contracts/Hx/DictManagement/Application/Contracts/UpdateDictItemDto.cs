@@ -11,6 +11,9 @@ namespace Hx.DictManagement.Application.Contracts
         [Required]
         [StringLength(DictManagementConsts.ValueMaxLength)]
         public required string Value { get; set; }
+        [Required]
+        [StringLength(DictManagementConsts.CodeMaxLength)]
+        public required string Code { get; set; }
         public bool Status { get; set; }
         public double Order { get; set; }
         public string? CssClass { get; set; }

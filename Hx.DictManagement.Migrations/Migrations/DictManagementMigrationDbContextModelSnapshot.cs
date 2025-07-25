@@ -233,7 +233,7 @@ namespace Migrations
                         .HasComment("标题");
 
                     b.HasKey("Id")
-                        .HasName("PK_APPLICATIONFORM_GROUP");
+                        .HasName("PK_DICT_TYPE_GROUPS");
 
                     b.HasIndex("ParentId");
 
@@ -260,7 +260,7 @@ namespace Migrations
                         .WithMany("Items")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("AF_GROUPS_APPLICATIONFORM_ID");
+                        .HasConstraintName("AF_DICT_TYPE_GROUPS_ID");
                 });
 
             modelBuilder.Entity("Hx.DictManagement.Domain.DictTypeGroup", b =>
@@ -269,7 +269,7 @@ namespace Migrations
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("AF_GROUPS_PARENT_ID");
+                        .HasConstraintName("AF_DICT_TYPE_GROUPS_PARENT_ID");
                 });
 
             modelBuilder.Entity("Hx.DictManagement.Domain.DictItem", b =>
